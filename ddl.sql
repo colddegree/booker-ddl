@@ -18,7 +18,7 @@ create table common.city ( # город
 );
 
 create table common.user ( # пользователь
-  id serial,
+  id serial primary key,
   type tinyint unsigned not null, # 1 - менеджер, 2 - клиент
   login varchar(255) not null unique,
   hashed_password varchar(255) not null,
@@ -29,7 +29,7 @@ create table common.user ( # пользователь
 
 # TODO: понять, что тут должно быть вместо урла (может имя файла + путь до него)
 create table common.photo ( # фото
-  id serial,
+  id serial primary key,
   url varchar(255) not null
 );
 
@@ -37,7 +37,7 @@ create table common.photo ( # фото
 
 
 create table hotel.hotel ( # гостиница
-  id serial,
+  id serial primary key,
   name varchar(255) not null,
   description text,
   region_id int unsigned not null,
@@ -53,14 +53,14 @@ create table hotel.hotel ( # гостиница
 );
 
 create table hotel.attraction ( # важное место (достопримечательность)
-  id serial,
+  id serial primary key,
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
   foreign key (hotel_id) references hotel.hotel (id)
 );
 
 create table hotel.rule ( # правило гостиницы
-  id serial,
+  id serial primary key,
   hotel_id bigint unsigned not null,
   text text not null,
   created_at timestamp not null default current_timestamp,
@@ -68,7 +68,7 @@ create table hotel.rule ( # правило гостиницы
 );
 
 create table hotel.room_type ( # тип номера
-  id serial,
+  id serial primary key,
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
   price int unsigned not null, # цена в день (в рублях)
@@ -78,7 +78,7 @@ create table hotel.room_type ( # тип номера
 );
 
 create table hotel.bed ( # спальное место
-  id serial,
+  id serial primary key,
   type tinyint unsigned not null, # 1 - взрослое, 2 - детское
   name varchar(255) not null,
   adults_max_capacity tinyint unsigned not null,
@@ -96,7 +96,7 @@ create table hotel.room_type_bed ( # тип кровати у типа номе�
 );
 
 create table hotel.facility ( # удобство
-  id serial,
+  id serial primary key,
   name varchar(255) not null
 );
 
@@ -117,7 +117,7 @@ create table hotel.room_type_discount ( # процент скидки на ти�
 );
 
 create table hotel.order ( # заказ на бронирование номера
-  id serial,
+  id serial primary key,
   hotel_id bigint unsigned not null,
   customer_id bigint unsigned not null,
   check_in_date date not null,
@@ -132,7 +132,7 @@ create table hotel.order ( # заказ на бронирование номер
 );
 
 create table hotel.order_room ( # индекс фактического гостиничного номера заказа
-  id serial,
+  id serial primary key,
   order_id bigint unsigned not null,
   room_type_id bigint unsigned not null,
   room varchar(255), # nullable т.к. проставляется менеджером после заселения
@@ -141,7 +141,7 @@ create table hotel.order_room ( # индекс фактического гост
 );
 
 create table hotel.order_payment ( # оплата заказа
-  id serial,
+  id serial primary key,
   order_id bigint unsigned not null,
   amount int unsigned not null, # сколько оплачено (в рублях)
   created_at timestamp not null default current_timestamp,
@@ -149,7 +149,7 @@ create table hotel.order_payment ( # оплата заказа
 );
 
 create table hotel.payment_type ( # способ оплаты
-  id serial,
+  id serial primary key,
   name varchar(255)
 );
 insert into hotel.payment_type (id, name) values (1, 'Оплата на месте'), (2, 'Предоплата');
@@ -163,7 +163,7 @@ create table hotel.payment_type_bind ( # способ оплаты гостин�
 );
 
 create table hotel.review ( # отзыв о гостинице
-  id serial,
+  id serial primary key,
   order_id bigint unsigned not null unique,
   summary_text text not null,
   advantages_text text not null,
@@ -173,13 +173,13 @@ create table hotel.review ( # отзыв о гостинице
 );
 
 create table hotel.review_feature ( # характеристка отзыва о гостинице
-  id serial,
+  id serial primary key,
   name varchar(255) not null
 );
 insert into hotel.review_feature (id, name) values (1, 'Удобства'), (2, 'Персонал'), (3, 'Расположение'), (4, 'Чистота'), (5, 'Комфорт');
 
 create table hotel.review_feature_rating ( # оценка характеристики отзыва о гостинице
-  id serial,
+  id serial primary key,
   review_id bigint unsigned not null,
   feature_id bigint unsigned not null,
   rating tinyint unsigned not null,
@@ -188,7 +188,7 @@ create table hotel.review_feature_rating ( # оценка характерист
 );
 
 create table hotel.complaint ( # жалоба клиента на гостиницу
-  id serial,
+  id serial primary key,
   customer_id bigint unsigned not null,
   hotel_id bigint unsigned not null,
   text text not null,
@@ -211,13 +211,13 @@ create table hotel.photo ( # фотография гостиницы
 
 
 create table service.category ( # категория услуг
-  id serial,
+  id serial primary key,
   name varchar(255)
 );
 insert into service.category (id, name) values (1, 'Еда'), (2, 'Напитки'), (3, 'Горячие блюда'), (4, 'Русская кухня');
 
 create table service.service ( # услуга
-  id serial,
+  id serial primary key,
   type tinyint unsigned not null, # 1 - еда/напитки, 2 - сервис
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
@@ -234,7 +234,7 @@ create table service.service ( # услуга
 );
 
 create table service.portion ( # порция услуги (или опция)
-  id serial,
+  id serial primary key,
   service_id bigint unsigned not null,
   is_option bool not null default false,
   size int unsigned not null,
@@ -244,7 +244,7 @@ create table service.portion ( # порция услуги (или опция)
 );
 
 create table service.ingredient ( # ингредиент
-  id serial,
+  id serial primary key,
   name varchar(255) not null,
   hotel_id bigint unsigned, # для того, чтобы можно было менеджеру добавить кастомные ингредиенты (по аналогии с hotel.bed)
   foreign key (hotel_id) references hotel.hotel (id)
@@ -267,7 +267,7 @@ create table service.availability ( # доступность услуги
 );
 
 create table service.order ( # заказ услуги
-  id serial,
+  id serial primary key,
   ordered_service_id bigint unsigned not null,
   order_id bigint unsigned not null,
   room varchar(255) not null, # индекс гостиничного номера из hotel.order_room по order_id TODO: может быть тут nullable? Ведь не всегда услуга предоставляется в номер. Или всегда?
