@@ -172,7 +172,7 @@ create table hotel.order_room ( # индекс фактического гост
 create table hotel.order_payment ( # оплата заказа
   id serial primary key,
   order_id bigint unsigned not null,
-  amount int unsigned not null, # сколько оплачено (в рублях)
+  rubles_count int unsigned not null, # сколько оплачено (в рублях)
   created_at timestamp not null default current_timestamp,
   foreign key (order_id) references hotel.order (id)
 );
@@ -301,7 +301,7 @@ create table service.order ( # заказ услуги
   order_id bigint unsigned not null,
   room varchar(255) not null, # индекс гостиничного номера из hotel.order_room по order_id TODO: может быть тут nullable? Ведь не всегда услуга предоставляется в номер. Или всегда?
   portion_id bigint unsigned not null,
-  portions_amount smallint unsigned not null,
+  portions_count smallint unsigned not null,
   customer_comment text,
   manager_comment text,
   created_at timestamp not null default current_timestamp,
@@ -314,7 +314,7 @@ create table service.order ( # заказ услуги
 create table service.order_option ( # опция услуги в заказе услуги
   order_id bigint unsigned not null,
   option_id bigint unsigned not null,
-  amount smallint unsigned not null,
+  options_count smallint unsigned not null,
   foreign key (order_id) references service.order (id),
   foreign key (option_id) references service.portion (id),
   primary key (order_id, option_id)
