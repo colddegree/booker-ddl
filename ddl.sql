@@ -139,6 +139,7 @@ create table hotel.order ( # заказ на бронирование номер
   comment varchar(255),
   cost int unsigned not null, # стоимость заказа (в рублях)
   created_at timestamp not null default current_timestamp,
+  is_canceled bool not null default false,
   foreign key (hotel_id) references hotel.hotel (id),
   foreign key (customer_id) references common.user (id)
 );
