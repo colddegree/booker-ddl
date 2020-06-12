@@ -269,7 +269,7 @@ create table service.portion ( # порция услуги (или опция)
   service_id bigint unsigned not null,
   is_option bool not null default false,
   size int unsigned not null,
-  unit varchar(255) not null, # TODO: может тут nullable?
+  unit varchar(255) not null,
   price bigint unsigned not null, # цена порции (в копейках)
   foreign key (service_id) references service.service (id)
 );
@@ -301,9 +301,9 @@ create table service.order ( # заказ услуги
   id serial primary key,
   ordered_service_id bigint unsigned not null,
   order_id bigint unsigned not null,
-  room varchar(255) not null, # индекс гостиничного номера из hotel.order_room по order_id TODO: может быть тут nullable? Ведь не всегда услуга предоставляется в номер. Или всегда?
-  portion_id bigint unsigned not null,
-  portions_count smallint unsigned not null,
+  room varchar(255) not null, # индекс гостиничного номера из hotel.order_room по order_id (у нас все услуги предоставляются в номер)
+  portion_id bigint unsigned, # выставляется только для услуг типа "еда/напитки"
+  portions_count smallint unsigned, # выставляется только для услуг типа "еда/напитки"
   customer_comment text,
   manager_comment text,
   created_at timestamp not null default current_timestamp,
