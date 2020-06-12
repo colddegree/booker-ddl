@@ -187,8 +187,8 @@ create table hotel.review ( # отзыв о гостинице
   id serial primary key,
   order_id bigint unsigned not null unique,
   summary_text text not null,
-  advantages_text text not null,
-  disadvantages_text text not null,
+  advantages_text text,
+  disadvantages_text text,
   created_at timestamp not null default current_timestamp,
   foreign key (order_id) references hotel.order (id)
 );
@@ -197,7 +197,7 @@ create table hotel.review_feature ( # характеристка отзыва о
   id serial primary key,
   name varchar(255) not null
 );
-insert into hotel.review_feature (id, name) values (1, 'Удобства'), (2, 'Персонал'), (3, 'Расположение'), (4, 'Чистота'), (5, 'Комфорт');
+insert into hotel.review_feature (id, name) values (1, 'Удобства'), (2, 'Персонал'), (3, 'Расположение'), (4, 'Чистота');
 
 create table hotel.review_feature_rating ( # оценка характеристики отзыва о гостинице
   id serial primary key,
