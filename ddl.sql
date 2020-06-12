@@ -241,7 +241,7 @@ create table hotel.photo ( # фотография гостиницы
 
 create table service.category ( # категория услуг
   id serial primary key,
-  name varchar(255)
+  name varchar(255) not null
 );
 insert into service.category (id, name) values (1, 'Еда'), (2, 'Напитки'), (3, 'Горячие блюда'), (4, 'Русская кухня');
 
