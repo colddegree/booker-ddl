@@ -29,7 +29,7 @@ create table common.user ( # пользователь
   type tinyint unsigned not null, # 1 - менеджер, 2 - клиент
   login varchar(255) not null unique,
   hashed_password varchar(255) not null,
-  name varchar(255) not null,
+  full_name varchar(255), # ФИО
   phone_number varchar(255),
   email_address varchar(255)
 );
@@ -130,8 +130,9 @@ create table hotel.order ( # заказ на бронирование номер
   id serial primary key,
   hotel_id bigint unsigned not null,
   customer_id bigint unsigned not null,
-  phone_number varchar(255) not null,
-  email_address varchar(255) not null,
+  customer_full_name varchar(255) not null, # ФИО клиента
+  customer_phone_number varchar(255) not null,
+  customer_email_address varchar(255) not null,
   check_in_date date not null,
   check_out_date date not null,
   adults_count tinyint unsigned not null,
