@@ -241,16 +241,18 @@ create table hotel.photo ( # фотография гостиницы
 
 create table service.category ( # категория услуг
   id serial primary key,
-  name varchar(255) not null
+  name varchar(255) not null,
+  hotel_id bigint unsigned, # для того, чтобы можно было менеджеру добавить кастомные категории
+  foreign key (hotel_id) references hotel.hotel (id)
 );
-insert into service.category (id, name) values (1, 'Еда'), (2, 'Напитки'), (3, 'Горячие блюда'), (4, 'Русская кухня');
+insert into service.category (name) values ('Еда'), ('Напитки'), ('Горячие блюда'), ('Русская кухня');
 
 create table service.service ( # услуга
   id serial primary key,
   type tinyint unsigned not null, # 1 - еда/напитки, 2 - сервис
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
-  category_id bigint unsigned not null,
+  category_id bigint unsigned,
   has_alcohol bool,
   nutrition_proteins float unsigned, # пищевая ценность (на 100 г продукта) - белки (в граммах)
   nutrition_fats float unsigned, # пищевая ценность (на 100 г продукта) - жиры (в граммах)
