@@ -260,6 +260,7 @@ create table service.service ( # услуга
   calories smallint unsigned, # энергетическая ценность (на 100 г продукта) - калории (в ккал)
   waiting_time smallint unsigned, # время ожидания услуги (в минутах)
   execution_time smallint unsigned, # время выполнения услуги (в минутах)
+  price bigint unsigned, # цена услуги (в копейках), только для услуг типа "сервис"
   foreign key (hotel_id) references hotel.hotel (id),
   foreign key (category_id) references service.category (id)
 );
