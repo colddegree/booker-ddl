@@ -133,6 +133,13 @@ create table hotel.order ( # заказ на бронирование номер
   foreign key (customer_id) references common.user (id)
 );
 
+create table hotel.order_kid ( # ребёнок в заказе
+  id serial primary key,
+  order_id bigint unsigned not null,
+  age tinyint unsigned not null,
+  foreign key (order_id) references hotel.order (id)
+);
+
 create table hotel.order_room ( # индекс фактического гостиничного номера заказа
   id serial primary key,
   order_id bigint unsigned not null,
