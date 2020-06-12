@@ -10,11 +10,18 @@ create table common.region ( # регион
   name varchar(255) not null
 );
 
-create table common.city ( # город
+create table common.city ( # город региона
   id int unsigned not null primary key,
   region_id int unsigned not null,
   name varchar(255) not null,
   foreign key (region_id) references common.region (region_id)
+);
+
+create table common.district ( # район города
+  id int unsigned not null primary key,
+  city_id int unsigned not null,
+  name varchar(255) not null,
+  foreign key (city_id) references common.city (id)
 );
 
 create table common.user ( # пользователь
@@ -40,16 +47,18 @@ create table hotel.hotel ( # гостиница
   id serial primary key,
   name varchar(255) not null,
   description text,
-  region_id int unsigned not null,
-  city_id int unsigned,
   stars_count tinyint unsigned not null default 0,
-  address varchar(255) not null unique,
   phone_number varchar(255) not null,
   email_address varchar(255) not null,
   manager_id bigint unsigned not null unique,
+  region_id int unsigned not null,
+  city_id int unsigned,
+  district_id int unsigned,
+  address varchar(255) not null unique,
+  foreign key (manager_id) references common.user (id),
   foreign key (region_id) references common.region (region_id),
   foreign key (city_id) references common.city (id),
-  foreign key (manager_id) references common.user (id)
+  foreign key (district_id) references common.district (id)
 );
 
 create table hotel.attraction ( # важное место (достопримечательность)
