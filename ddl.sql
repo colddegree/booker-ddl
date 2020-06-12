@@ -61,6 +61,14 @@ create table hotel.hotel ( # гостиница
   foreign key (district_id) references common.district (id)
 );
 
+create table hotel.favorite ( # избранная гостиница клиента
+  customer_id bigint unsigned not null,
+  hotel_id bigint unsigned not null,
+  foreign key (customer_id) references common.user (id),
+  foreign key (hotel_id) references hotel.hotel (id),
+  primary key (customer_id, hotel_id)
+);
+
 create table hotel.attraction ( # важное место (достопримечательность)
   id serial primary key,
   hotel_id bigint unsigned not null,
