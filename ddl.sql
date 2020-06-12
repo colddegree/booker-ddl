@@ -295,6 +295,7 @@ create table service.order ( # заказ услуги
   customer_comment text,
   manager_comment text,
   created_at timestamp not null default current_timestamp,
+  status tinyint not null, # статус заказа услуги: 1 - ожидает выполнения, 2 - в процессе выполнения, 3 - выполнено, 4 - отказано
   foreign key (ordered_service_id) references service.service (id),
   foreign key (order_id) references hotel.order (id),
   foreign key (portion_id) references service.portion (id)
