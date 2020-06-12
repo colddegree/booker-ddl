@@ -297,6 +297,16 @@ create table service.availability ( # доступность услуги
   primary key (service_id, start, end)
 );
 
+create table service.photo ( # фотография услуги
+  service_id bigint unsigned not null,
+  photo_id bigint unsigned not null,
+  position tinyint unsigned not null,
+  is_main bool not null default false,
+  foreign key (service_id) references service.service (id),
+  foreign key (photo_id) references common.photo (id),
+  primary key (service_id, photo_id)
+);
+
 create table service.order ( # заказ услуги
   id serial primary key,
   ordered_service_id bigint unsigned not null,
@@ -320,14 +330,4 @@ create table service.order_option ( # опция услуги в заказе у
   foreign key (order_id) references service.order (id),
   foreign key (option_id) references service.portion (id),
   primary key (order_id, option_id)
-);
-
-create table service.photo ( # фотография услуги
-  service_id bigint unsigned not null,
-  photo_id bigint unsigned not null,
-  position tinyint unsigned not null,
-  is_main bool not null default false,
-  foreign key (service_id) references service.service (id),
-  foreign key (photo_id) references common.photo (id),
-  primary key (service_id, photo_id)
 );
