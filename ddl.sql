@@ -72,6 +72,7 @@ create table hotel.room_type ( # тип номера
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
   price int unsigned not null, # цена в день (в рублях)
+  with_free_cancellation bool not null default false,
   rooms_count int unsigned not null,
   available_rooms_count int unsigned not null,
   foreign key (hotel_id) references hotel.hotel (id)
