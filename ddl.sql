@@ -315,6 +315,7 @@ create table service.order ( # заказ услуги
   room varchar(255) not null, # индекс гостиничного номера из hotel.order_room по order_id (у нас все услуги предоставляются в номер)
   portion_id bigint unsigned, # выставляется только для услуг типа "еда/напитки"
   portions_count smallint unsigned, # выставляется только для услуг типа "еда/напитки"
+  must_be_served_at datetime not null, # дата и время когда должна быть оказана услуга клиенту
   customer_comment text,
   manager_comment text,
   created_at timestamp not null default current_timestamp,
