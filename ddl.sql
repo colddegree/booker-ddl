@@ -252,6 +252,7 @@ create table service.service ( # услуга
   type tinyint unsigned not null, # 1 - еда/напитки, 2 - сервис
   hotel_id bigint unsigned not null,
   name varchar(255) not null,
+  description text,
   category_id bigint unsigned,
   has_alcohol bool,
   nutrition_proteins float unsigned, # пищевая ценность (на 100 г продукта) - белки (в граммах)
