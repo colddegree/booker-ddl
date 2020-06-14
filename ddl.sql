@@ -266,12 +266,19 @@ create table service.service ( # услуга
   foreign key (category_id) references service.category (id)
 );
 
+create table service.portion_unit ( # единица измерения порции
+  id serial primary key,
+  name varchar(255) not null,
+  hotel_id bigint unsigned, # для того, чтобы можно было менеджеру добавить кастомные единицы измерения порций (по аналогии с hotel.bed)
+  foreign key (hotel_id) references hotel.hotel (id)
+);
+
 create table service.portion ( # порция услуги (или опция)
   id serial primary key,
   service_id bigint unsigned not null,
   is_option bool not null default false,
   size int unsigned not null,
-  unit varchar(255) not null,
+  unit varchar(255) not null, # значение из service.portion_unit.name (чтобы при изменении значения не менялось в порции)
   price bigint unsigned not null, # цена порции (в копейках)
   foreign key (service_id) references service.service (id)
 );
