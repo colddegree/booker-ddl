@@ -277,6 +277,7 @@ create table service.portion ( # порция услуги (или опция)
   id serial primary key,
   service_id bigint unsigned not null,
   is_option bool not null default false,
+  option_name varchar(255),
   size int unsigned not null,
   unit varchar(255) not null, # значение из service.portion_unit.name (чтобы при изменении значения не менялось в порции)
   price bigint unsigned not null, # цена порции (в копейках)
