@@ -79,9 +79,16 @@ create table hotel.attraction ( # важное место (достоприме�
 create table hotel.rule ( # правило гостиницы
   id serial primary key,
   hotel_id bigint unsigned not null,
-  text text not null,
   created_at timestamp not null default current_timestamp,
   foreign key (hotel_id) references hotel.hotel (id)
+);
+
+create table hotel.rule_item ( # элемент правила гостиницы
+  id serial primary key,
+  rule_id bigint unsigned not null,
+  heading varchar(255) not null,
+  content text not null,
+  foreign key (rule_id) references hotel.rule (id)
 );
 
 create table hotel.room_type ( # тип номера
