@@ -246,7 +246,7 @@ create table hotel.photo ( # фотография гостиницы
 
 
 
-create table service.category ( # категория услуг
+create table service.category ( # категория услуги
   id serial primary key,
   name varchar(255) not null,
   hotel_id bigint unsigned, # для того, чтобы можно было менеджеру добавить кастомные категории
@@ -262,6 +262,7 @@ create table service.service ( # услуга
   description text,
   category_id bigint unsigned,
   has_alcohol bool,
+  is_spicy bool,
   nutrition_proteins float unsigned, # пищевая ценность (на 100 г продукта) - белки (в граммах)
   nutrition_fats float unsigned, # пищевая ценность (на 100 г продукта) - жиры (в граммах)
   nutrition_carbs float unsigned, # пищевая ценность (на 100 г продукта) - углеводы (в граммах)
