@@ -345,7 +345,6 @@ create table service.order ( # заказ услуги
 create table service.order_option ( # опция услуги в заказе услуги
   order_id bigint unsigned not null,
   option_id bigint unsigned not null,
-  options_count smallint unsigned not null,
   foreign key (order_id) references service.order (id),
   foreign key (option_id) references service.portion (id),
   primary key (order_id, option_id)
