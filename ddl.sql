@@ -88,6 +88,7 @@ create table hotel.rule_item ( # элемент правила гостиниц�
   rule_id bigint unsigned not null,
   heading varchar(255) not null,
   content text not null,
+  position tinyint unsigned not null,
   foreign key (rule_id) references hotel.rule (id)
 );
 
